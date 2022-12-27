@@ -27,7 +27,7 @@ By summing all the balances together and comparing the sum to the total assets o
 This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **privacy** of the exchange's (and its customers') data.
 
 <div align="center">
-<img src="./imgs/tradeoff-1.png" width="500" align="center" />
+<img src="../tradeoff-1.png" width="500" align="center" />
 </div>
 <br>
 
@@ -38,7 +38,7 @@ This Proof of Liability implementation is partially **private** but sacrifices t
 This solution is only partially private because critical information are leaked in the process such as the total number of users of Binance or the amount of liabilities that Binance, which are the sum of the balances of its users. 
 
 <div align="center">
-<img src="./imgs/tradeoff-2.png" width="500" align="center" />
+<img src="../tradeoff-2.png" width="500" align="center" />
 </div>
 <br>
 
@@ -50,7 +50,7 @@ zkPOS makes use of zk SNARKs to let Centralized Exchanges (CEX) generate a **cre
 **Private** means without leaking to the public any user's private data or other Business Intelligence Data.
 
 <div align="center">
-<img src="./imgs/tradeoff-3.png" width="500" align="center" />
+<img src="../tradeoff-3.png" width="500" align="center" />
 </div>
 <br>
 
