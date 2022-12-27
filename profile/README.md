@@ -67,4 +67,13 @@ about its actual liabilities.
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
-The library is a plug-in component to an existing database of users. The entries of the database (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The tree is then used to generate a zk SNARK proof.
+### Libraries
+
+- Sparse Merkle Sum Tree is a plug-in component to an existing database of users. The entries of the database (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
+- zkPOS Proving System contains the circuits enforcing the rules that the Exchange must abide by to generate its proof of solvency and a set of Javascript APIs to generate (and verify) Proof of Liabilities for each user
+
+
+
+
+
+
