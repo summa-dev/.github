@@ -85,7 +85,7 @@ The flow of the zkPOL system is the following:
 7. Alice verifies that the Public Signals (Root of the tree and Liabilities Sum) match the ones published on the Public Bulletin Board
 
 <div align="center">
-<img src="./imgs/zk-POL-1.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-POL-1.png" width="500" align="center" />
 </div>
 <br>
 
