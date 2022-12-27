@@ -58,7 +58,7 @@ Ownership of assets is achieved by signing a specific message from their wallet.
 
 The Liabilities of an Exchange are the sum of funds owned by the customers operating on the exchange. This balances are computed inside a Merkle Tree. This Merkle Tree is private and gets never shared to the customers.
 
-zkPOL is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
+zkPOS is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
 
 Starting from the proof, a user can verify that they have been included (with their correct balance) in the computation of the Liabilities of the Exchange and that the total amount of Liabilities is less than its controlled Assets. 
 
@@ -74,18 +74,19 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 ## User Flow
 
-The flow of the zkPOL system is the following:
+The flow of the zkPOS system is the following:
 
-1. The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the SMST
-2. The Exchange publishes the Root of the SMST and the total sum of the balances (Liabilities Sum) computed inside the SMST to a Public Bulletin Board 
-3. Alice asks the Exchange for a Proof of Liability
-4. The Exchange generates a Proof of Liability for Alice and sends it to her. This is the proof that Alice (and her correct balance) were included in the SMST. That is, the computation of the liabilities was performed including Alice's balance.
-5. The Exchange hands the Proof of Liability (and the Public Signals used as inputs) to Alice
-6. Alice verifies the Proof of Liability 
-7. Alice verifies that the Public Signals (Root of the tree and Liabilities Sum) match the ones published on the Public Bulletin Board
+1. The Exchange generates and publishes its Proof of Assets by proving ownership of a particular address (for example by signing a specific message)
+2. The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the SMST
+3. The Exchange publishes the Root of the SMST computed inside the SMST to a Public Bulletin Board 
+4. Alice asks the Exchange for a Proof of Solvency
+5. The Exchange generates a (zk) Proof of Solvency for Alice and sends it to her. This is the proof that Alice (and her correct balance) were included in the SMST and the total sum of the liabilities is less or equal to the Assets controlled by the Exchange.
+6. The Exchange hands the Proof of Solvency (and the Public Signals used as inputs) to Alice
+7. Alice verifies the Proof of Liability 
+8. Alice executes further verification on the Public Signals used as input. The leaf must match Alice's username and balance. The assets must match the one published in the Proof of Assets (step 1). The root must match the one published on the Public Bulletin Board
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-POL-1.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-POS.png" width="500" align="center" />
 </div>
 <br>
 
