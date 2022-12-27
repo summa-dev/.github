@@ -74,7 +74,7 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 ### Who
 
-[Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
+- [Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
 
 ### When
 
