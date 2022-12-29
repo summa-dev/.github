@@ -71,7 +71,7 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 - [Go Sparse Merkle Sum Tree](https://github.com/pan-y-tomate/go-sparse-merkle-sum-tree) is a go library where the entries of the exchange (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
 - [Ts Merkle Sum Tree](https://github.com/pan-y-tomate/ts-merkle-sum-tree) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
-- zk Proof of Solvency Prover System contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency and a set of SnarkJS APIs to generate (and verify) Proof of Solvency for each user
+- [zk Proof of Solvency Prover](https://github.com/pan-y-tomate/zk-proof-of-solvency-prover) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency and a set of SnarkJS APIs to generate (and verify) Proof of Solvency for each user
 
 ## User Flow
 
