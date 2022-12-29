@@ -69,8 +69,9 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 ### How
 
-- Sparse Merkle Sum Tree is a plug-in component to an existing database of users. The entries of the database (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
-- zkPOS Proving System contains the circuits enforcing the rules that the Exchange must abide by to generate its proof of solvency and a set of Javascript APIs to generate (and verify) Proof of Liabilities for each user
+- [Go Sparse Merkle Sum Tree](https://github.com/pan-y-tomate/go-sparse-merkle-sum-tree) is a go library where the entries of the exchange (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
+- [Ts Merkle Sum Tree](https://github.com/pan-y-tomate/ts-merkle-sum-tree) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
+- zk Proof of Solvency Prover System contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency and a set of SnarkJS APIs to generate (and verify) Proof of Solvency for each user
 
 ## User Flow
 
@@ -96,7 +97,7 @@ The flow of the zkPOS system is the following:
 
 ### When
 
-- [ ] Jan 2023, complete the SMST library
+- [ ] Jan 2023, complete the SMST library (Go and TypeScript
 - [ ] Feb 2023, complete the Proving System library
 - [ ] March 2023, first POC with an Exchange
 
