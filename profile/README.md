@@ -1,6 +1,6 @@
 # Pan y Tomate
 
-Pan y Tomate employs cryptography to create bulletproof credibility.
+Pan y Tomate employs cryptography to create bulletproof credibility and protect Business Intelligence.
 
 ---
 
