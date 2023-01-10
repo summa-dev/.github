@@ -67,6 +67,10 @@ about its actual liabilities.
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
+### Demo it
+
+Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)ß
+
 ### How
 
 - [Go Sparse Merkle Sum Tree](https://github.com/pan-y-tomate/go-sparse-merkle-sum-tree) is a go library where the entries of the exchange (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
@@ -95,17 +99,15 @@ The flow of the zkPOS system is the following:
 
 - [Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
 
-### When
+### What's next 
 
-- [ ] Jan 2023, complete the SMST library (Go and TypeScript
-- [ ] Feb 2023, complete the Proving System library
-- [ ] March 2023, first POC with an Exchange
-
-### Main Challenges
-
-- Create a friendly user experience and explain it to users
-- Make the APIs pluggable with existing db systems
-- Make it work with users' balances denominated in different currencies
+- [ ] privacy, research ways to let the exchange hide their proof of assets while verifying it inside a zk proof
+- [ ] efficiency, explore further zk backend such as HALO2 to increase the proving time 
+- [ ] UX, create a friendly user experience and make it understandable to users
+- [ ] Add support to on-chain verification
+- [ ] Explore on-chain mechanisms to incentivize users to verify their proof of solvency
+- [ ] Perform security audit on the zk circuit 
+- [ ] Support balances in different currencies
 
 ### Further Resources
 
@@ -113,6 +115,7 @@ The flow of the zkPOS system is the following:
 - [Having a safe CEX: proof of solvency and beyond - Vitalik Buterin](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html)
 - [SNARKed Merkle Sum Tree: A Practical Proof-of-Solvency Protocol based on Vitalik’s Proposal - Eth Research](https://ethresear.ch/t/snarked-merkle-sum-tree-a-practical-proof-of-solvency-protocol-based-on-vitaliks-proposal/14405)
 - [ZK Podcast - Proof of Solvency with Kostas Chalkias](https://zeroknowledge.fm/257-2/)
+- [Generalized Proof of Liabilities - Kostas Chalkias Yan Ji](https://eprint.iacr.org/2021/1350.pdf)
 
 
 
