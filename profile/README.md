@@ -87,7 +87,7 @@ The flow of the zkPOS system is the following:
 8. Alice executes further verification on the Public Signals used as input. The leaf must match Alice's username and balance. The assets must match the one published in the Proof of Assets (step 1). The root must match the one published on the Public Bulletin Board
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-POS.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk POS.png" width="500" align="center" />
 </div>
 <br>
 
