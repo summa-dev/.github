@@ -69,7 +69,7 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 ### Demo it
 
-Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)ß
+Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
 
 ### How
 
