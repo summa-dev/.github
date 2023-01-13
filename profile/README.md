@@ -2,9 +2,9 @@
 
 Pan y tomate is an open source tool to generate credible, self-auditable and private Proof of Solvency (PoSol).
 
-- Credible; zkSNARKs ensure computational integrity of the program used to generate the PoSol
-- Self-auditable; each user of the exchange can self attest the validity of the proof without having to rely or trust auditors
-- Private; all the Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public
+- **Credible** - zkSNARKs ensure computational integrity of the program used to generate the PoSol
+- **Self-auditable** - each user of the exchange can self attest the validity of the proof without having to rely or trust auditors
+- **Private** - all the Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public
 
 ---
 
