@@ -6,11 +6,11 @@ Pan y Tomate employs cryptography to create bulletproof credibility and protect 
 
 ## zk Proof Of Solvency
 
-zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges generate **credible** and **private** Proof of Liabilities.
+zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges generate **credible** and **private** Proof of Liabilities. 
 
 ### Why?
 
-Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. In particular, [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control are greater than the liabilities.
+Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. In particular, [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users.
 
 $Assets \geq  Liabilities$ 
 
@@ -88,7 +88,7 @@ The flow of the zkPOS system is the following:
 5. The Exchange generates a (zk) Proof of Solvency for Alice and sends it to her. This is the proof that Alice (and her correct balance) were included in the SMST and the total sum of the liabilities is less or equal to the Assets controlled by the Exchange.
 6. The Exchange hands the Proof of Solvency (and the Public Signals used as inputs) to Alice
 7. Alice verifies the Proof of Liability 
-8. Alice executes further verification on the Public Signals used as input. The leaf must match Alice's username and balance. The assets must match the one published in the Proof of Assets (step 1). The root must match the one published on the Public Bulletin Board
+8. Alice executes further verification on the Public Signals used as input. The leaf must match Alice's username and balance. The assets must match the one published in the Proof of Assets (step 1). The root must match the one published on the Public Bulletin Board.
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk POS.png" width="500" align="center" />
