@@ -4,7 +4,7 @@ Pan y Tomate is an open source tool that employs cryptographic to create credibl
 
 **Credible** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
-**Private** - all the Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
+**Private** - The Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
 
 ---
 
