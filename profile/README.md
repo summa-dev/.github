@@ -1,16 +1,16 @@
 # Pan y Tomate
 
-Pan y Tomate is an open source tool that employs cryptographic to create credible and private Proof of Solvency (PoSol).
+Pan y Tomate is an open source tool that employs cryptographic to let exchanges achieve credibility maintaing secrecy over their Business Information.
 
-**Credible** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
+**Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
-**Private** - The Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
+**Secrecy** - The Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
 
 ---
 
 ## zk Proof Of Solvency
 
-zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges generate **credible** and **private** Proof of Liabilities. 
+zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges generate **credible** and **secret** Proof of Liabilities. 
 
 ### Why?
 
