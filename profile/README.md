@@ -1,6 +1,12 @@
 # Pan y Tomate
 
-Pan y Tomate is an open source tool that employs cryptographic to let exchanges achieve credibility maintaining secrecy over their Business Information.
+## Problem Statement 
+
+People don't trust Centralized Exchanges (CEXs)
+
+## Solution 
+
+Pan y Tomate is an open source tool that employs cryptographic to let CEXs achieve credibility maintaining secrecy over their Business Information.
 
 **Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
@@ -10,7 +16,7 @@ Pan y Tomate is an open source tool that employs cryptographic to let exchanges 
 
 ## zk Proof Of Solvency
 
-zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges generate **credible** and **secret** Proof of Liabilities. 
+zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let CEXs generate **credible** and **secret** Proof of Liabilities. 
 
 ### Why?
 
@@ -51,7 +57,7 @@ This solution is only partially private because critical information are leaked 
 zkPOS makes use of zk SNARKs to let Centralized Exchanges (CEX) generate a **credible** and **private** Proof of Solvency. 
 
 **Credbile** means that user can verify the Solvency of a CEX independently and without having to trust any auditor.
-**Private** means without leaking to the public any user's private data or other Business Intelligence Data.
+**Secret** means without leaking to the public any user's private data or other Business Intelligence Data.
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-3.png" width="500" align="center" />
@@ -103,7 +109,7 @@ The flow of the zkPOS system is the following:
 
 - [Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
 
-### What's next 
+### What's next - Phase 1
 
 - [ ] privacy, research ways to let the exchange hide their proof of assets while verifying it inside a zk proof
 - [ ] efficiency, explore further zk backend such as HALO2 to increase the proving time 
@@ -112,6 +118,10 @@ The flow of the zkPOS system is the following:
 - [ ] Explore on-chain mechanisms to incentivize users to verify their proof of solvency
 - [ ] Perform security audit on the zk circuit 
 - [ ] Support balances in different currencies
+
+### What's next - Phase 2
+
+Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 ### Further Resources
 
