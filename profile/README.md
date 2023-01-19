@@ -1,6 +1,6 @@
 # Pan y Tomate
 
-Pan y Tomate is an open source tool that employs cryptographic to let exchanges achieve credibility maintaing secrecy over their Business Information.
+Pan y Tomate is an open source tool that employs cryptographic to let exchanges achieve credibility maintaining secrecy over their Business Information.
 
 **Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
