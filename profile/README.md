@@ -124,7 +124,7 @@ The flow of the zkPOS system is the following:
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk POS.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" width="500" align="center" />
 </div>
 <br>
 
