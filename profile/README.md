@@ -33,7 +33,7 @@ By summing all the balances together and comparing the sum to the total assets o
 This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **secrecy** of the exchange's business data.
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-1.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-1.png" width="700" align="center" />
 </div>
 <br>
 
@@ -44,7 +44,7 @@ This Proof of Liability implementation is partially **secret** but sacrifices th
 This solution is only partially private because critical information are leaked in the process such as the total number of users of Binance or the amount of liabilities that Binance, which are the sum of the balances of its users. 
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-2.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-2.png" width="700" align="center" />
 </div>
 <br>
 
@@ -56,7 +56,7 @@ zkPOS makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) 
 **Secret** means without leaking to the public any user's private data or other Business Intelligence Data.
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-3.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-3.png" width="700" align="center" />
 </div>
 <br>
 
@@ -77,11 +77,14 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
 Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
 
-### How
+### How - Infrastructure
 
-- [Go Sparse Merkle Sum Tree](https://github.com/pan-y-tomate/go-sparse-merkle-sum-tree) is a go library where the entries of the exchange (`username -> balance`) are added to a Sparse Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
-- [Ts Merkle Sum Tree](https://github.com/pan-y-tomate/ts-merkle-sum-tree) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
-- [zk Proof of Solvency Prover](https://github.com/pan-y-tomate/zk-proof-of-solvency-prover) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency and a set of SnarkJS APIs to generate (and verify) Proof of Solvency for each user
+- [pyt-merkle-sum-tree](https://github.com/orgs/pan-y-tomate/repositories) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
+- [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency
+
+### How - Dev Tooling
+
+- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency
 
 ## User Flow
 
