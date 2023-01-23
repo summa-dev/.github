@@ -144,9 +144,12 @@ The flow of is the following:
     - `leafUsername` is the username of the user whose proof is generated for in format. The username is first parsed into its utf8 bytes representation and then converted to BigInt to get to `leafUsername`
     - `pathIndices, siblingHashes and siblingSums` represents the Merkle proof of inclusion of an the user’s leaf inside the Merkle Sum Tree
     - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
-    
-    ![circuit design](https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png)
-    
+
+    <div align="center">
+    <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png](https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png" width="700" align="center" />
+    </div>
+    <br>
+        
     The SNARK performs the following operations:
     
     - Perform the posiedon hash on the entry (`leafUsername, leafSum`) to get the `leafHash` (public output of the circuit)
@@ -185,7 +188,7 @@ The flow of is the following:
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" width="1000" align="center" />
 </div>
 <br>
 
