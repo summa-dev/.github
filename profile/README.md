@@ -14,10 +14,6 @@ Pan y Tomate is an open source tool that employs cryptographic to let CEXs achie
 
 ---
 
-## zk Proof Of Solvency
-
-zk Proof Of Solvency (zkPOS) makes use of [zk SNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let CEXs generate **credible** and **secret** Proof of Liabilities. 
-
 ### Why?
 
 Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. In particular, [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users.
@@ -34,16 +30,16 @@ The simplest solution would be opening up the database and disclosing every user
 
 By summing all the balances together and comparing the sum to the total assets of the exchange is possible to verify the solvency of the exchange.
 
-This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **privacy** of the exchange's (and its customers') data.
+This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **secrecy** of the exchange's business data.
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-1.png" width="500" align="center" />
 </div>
 <br>
 
-Other implementations, such as [Binance's](https://www.binance.com/en/proof-of-reserves), achieve Proof of Liability by splitting users' balances across the leaves of a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree). The exchange would publish the Merkle Tree itself together with the total sum of liabilities. Each user can verify being included in the Merkle Tree. Since the individual balances are not public (only a hash is visible to the outside) users cannot independently sum the balances to calculate the total liabilities. This process is performed by an auditor that customers need to trust. 
+Other implementations, such as [Binance's](https://www.binance.com/en/proof-of-reserves), achieve Proof of Liability by splitting users' balances across the leaves of a [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree). The exchange would publish the Merkle Tree itself together with the total sum of liabilities. Each user can verify being included in the Merkle Tree. Since the individual users' balances are not public (only a hash is visible to the outside) users cannot independently sum the balances to calculate the total liabilities. This process is performed by an auditor that customers need to trust. 
 
-This Proof of Liability implementation is partially **private** but sacrifices the **credibility** of the proof.
+This Proof of Liability implementation is partially **secret** but sacrifices the **credibility** of the proof as it requires auditors' overisight.
 
 This solution is only partially private because critical information are leaked in the process such as the total number of users of Binance or the amount of liabilities that Binance, which are the sum of the balances of its users. 
 
@@ -54,7 +50,7 @@ This solution is only partially private because critical information are leaked 
 
 ## What
 
-zkPOS makes use of zk SNARKs to let Centralized Exchanges (CEX) generate a **credible** and **private** Proof of Solvency. 
+zkPOS makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges (CEX) generate a **credible** and **secret** Proof of Solvency. 
 
 **Credbile** means that user can verify the Solvency of a CEX independently and without having to trust any auditor.
 **Secret** means without leaking to the public any user's private data or other Business Intelligence Data.
