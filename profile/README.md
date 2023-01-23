@@ -173,24 +173,15 @@ The flow of is the following:
 
 - [Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
 
-### What's next - Phase 1
-
-- [ ] privacy, research ways to let the exchange hide their proof of assets while verifying it inside a zk proof
-- [ ] efficiency, explore further zk backend such as HALO2 to increase the proving time 
-- [ ] UX, create a friendly user experience and make it understandable to users
-- [ ] Add support to on-chain verification
-- [ ] Explore on-chain mechanisms to incentivize users to verify their proof of solvency
-- [ ] Perform security audit on the zk circuit 
-- [ ] Support balances in different currencies
-
-### What's next - Phase 2
-
+### Phase 2 - Beyond Proof of Solvency 
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" height="700" align="center" />
 </div>
 <br>
+
+### Wanna Build? [Join the Discussion](https://github.com/orgs/pan-y-tomate/discussions)
 
 ### Further Resources
 
