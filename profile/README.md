@@ -12,6 +12,8 @@ Pan y Tomate is an open source tool that employs cryptographic to let CEXs achie
 
 **Secrecy** - The Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
 
+### [👷Join the Builders Discussion](https://github.com/orgs/pan-y-tomate/discussions)
+
 ---
 
 ### Why?
@@ -180,8 +182,6 @@ Phase 2 of pan-y-tomate will bring the same model to a bigger set of application
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" height="700" align="center" />
 </div>
 <br>
-
-### Wanna Build? [Join the Discussion](https://github.com/orgs/pan-y-tomate/discussions)
 
 ### Further Resources
 
