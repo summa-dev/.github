@@ -171,10 +171,6 @@ The flow of is the following:
     - The `rootHash` used as public input to the SNARK matches the one published in step 3
     - The `leafHash` , public output of the SNARK matches the combination `H(usernameToBigInt, balance)` of the user
 
-### Who
-
-- [Enrico Bottazzi](https://github.com/enricobottazzi), Developer and Technical Writer @[Iden3](https://iden3.io/) @[PolygonID](https://polygon.technology/polygon-id)
-
 ### Phase 2 - Beyond Proof of Solvency 
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
