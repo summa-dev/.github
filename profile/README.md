@@ -6,7 +6,7 @@ People don't trust Centralized Exchanges (CEXs)
 
 ## Solution 
 
-Pan y Tomate is an open source tool that employs cryptographic to let CEXs achieve credibility maintaining secrecy over their Business Information.
+Pan y Tomate is an open source tool that employs cryptographic proofs to let CEXs achieve credibility maintaining secrecy over their Business Information.
 
 **Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
@@ -28,11 +28,9 @@ The liabilities are the sum of the balances of the customers operating on the ex
 
 Proving liabilities is tricker. 
 
-The simplest solution would be opening up the database and disclosing every user-balance entry. The user can check if they have been included in the list so that the exchange is not understating their liabilities. This solution also prevents the exchange to add fake accounts with negative balances to understate their liabilities.
+The simplest solution would be opening up the database and disclosing every user-balance entry.  By summing all the balances together and comparing the sum to the total assets of the exchange is possible to verify the solvency of the exchange.
 
-By summing all the balances together and comparing the sum to the total assets of the exchange is possible to verify the solvency of the exchange.
-
-This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **secrecy** of the exchange's business data.
+This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **secrecy** of the exchange's (and its customers!)  data.
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/tradeoff-1.png" width="700" align="center" />
@@ -52,7 +50,7 @@ This solution is only partially private because critical information are leaked 
 
 ## What
 
-zkPOS makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges (CEX) generate a **credible** and **secret** Proof of Solvency. 
+Pan y Tomate makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges (CEX) generate a **credible** and **secret** Proof of Solvency. 
 
 **Credbile** means that user can verify the Solvency of a CEX independently and without having to trust any auditor.
 **Secret** means without leaking to the public any user's private data or other Business Intelligence Data.
@@ -64,14 +62,13 @@ zkPOS makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) 
 
 Ownership of assets is achieved by signing a specific message from their wallet. From that, it is possible to extract the exact amount of assets controlled by the CEX, at that specific time. 
 
-The Liabilities of an Exchange are the sum of funds owned by the customers operating on the exchange. This balances are computed inside a Merkle Tree. This Merkle Tree is private and gets never shared to the customers.
+The Liabilities of an Exchange are the sum of funds owned by the customers operating on the exchange. This balances are computed inside a [Merkle Sum Tree](https://github.com/orgs/pan-y-tomate/repositories). This Merkle Tree is private and gets never shared to the customers.
 
-zkPOS is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
+[pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
 
 Starting from the proof, a user can verify that they have been included (with their correct balance) in the computation of the Liabilities of the Exchange and that the total amount of Liabilities is less than its controlled Assets. 
 
-The rule is simple: if enough users request a Proof of Liability and they can all verify it, it becomes evident that the Exchange is not lying or understating its liabilities. If just one user cannot verify the proof, the Exchange is lying 
-about its actual liabilities. 
+The rule is simple: if enough users request a Proof of Liability and they can all verify it, it becomes evident that the Exchange is not lying or understating its liabilities. If just one user cannot verify the proof, the Exchange is lying about its actual liabilities. 
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
@@ -99,7 +96,7 @@ The flow of is the following:
 
 - `1. Proof of Assets`
     
-    The exchange requires to prove ownerhsip of an address with a certain amount of assets. In order to do so, the exchange needs to sign a certain message, for example H(`poSolID, address`) where 
+    The exchange is required to prove ownerhsip of an address with a certain amount of assets. In order to do so, the exchange needs to sign a certain message, for example H(`poSolID, address`) where 
     
     - `poSolID` is a sequential nonce unique for each Proof Of Solvency process.
     - `address` is the address controlled by the exchange
@@ -110,7 +107,7 @@ The flow of is the following:
     
 - `2. Add DB to Merkle Sum Tree`
     
-    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/pyt-merkle-sum-tree).  This process is done privately by the exchange, the tree is never shared to the public
+    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/pyt-merkle-sum-tree). This process is done privately by the exchange, the tree is never shared to the public.
     
     The exchange sorts its users by their username and balance (of a certain assets) and add them to the Merkle Sum Tree.
     
@@ -122,7 +119,7 @@ The flow of is the following:
     
     The username is first parsed into its utf8 bytes representation and then converted to BigInt before getting added to the Sparse Merkle Tree.
     
-    It is important here to use a username or a value that maps to a unique information about a specific user to avoid that a malicious exchange would reuse a entry for two different users.
+    It is important here to use a username or a value that maps to a unique information about a specific user to avoid that a malicious exchange would reuse the same entry for two different users.
     
     This action doesn’t require auditing or oversight. Any malicious operation that the exchange can perform here, such as 
     
@@ -130,11 +127,11 @@ The flow of is the following:
     2. excluding users
     3. understating users’ balances 
     
-    will be detected either in the proof generation phase (1) or in the proof verification phase (2 and 3).
+    will be detected either in the proof generation phase (case 1) or in the proof verification phase (cases 2 and 3).
     
 - `3. Publish Tree Root Hash`
     
-    The exchange has to publish the `rootHash` of the tree generated in step 2 to a Public Bulletin Board (Blockchain or twitter for example). The `rootHash` represents the state of the Merkle Sum Tree. This action represents a commitment to that state. 
+    The exchange has to publish the `rootHash` of the tree generated in step 2 to a Public Bulletin Board (Blockchain or Twitter for example). The `rootHash` represents the state of the Merkle Sum Tree. This action represents a commitment to that state. 
     
 - `4. Generate Proofs`
     
@@ -143,7 +140,8 @@ The flow of is the following:
     The exchange generates the Proof of Solvency inside a zkSNARK. The SNARK takes the following inputs:
     
     - `rootHash` is the hash of the merkle sum tree published in step 3 (public input)
-    - `leafUsername` is the username of the user whose proof is generated for in format. The username is first parsed into its utf8 bytes representation and then converted to BigInt to get to `leafUsername`
+    - `username` is the username of the user whose proof is generated for in BigInt format. The username is first parsed into its utf8 bytes representation and then converted to BigInt
+    - `balance` is the balance of the user whose proof is generated for in BigInt format.
     - `pathIndices, siblingHashes and siblingSums` represents the Merkle proof of inclusion of an the user’s leaf inside the Merkle Sum Tree
     - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
 
@@ -154,10 +152,11 @@ The flow of is the following:
         
     The SNARK performs the following operations:
     
-    - Perform the posiedon hash on the entry (`leafUsername, leafSum`) to get the `leafHash` (public output of the circuit)
+    - Perform the posiedon hash on the entry (`username, balance`) to get the `leafHash` (public output of the circuit)
     - Build the Merkle Sum Tree starting from the leaf and its Merkle Proof to get to the `computedRootHash` and the `computedRootSum`
     - Verify that `computedRootSum` is equal to the `rootHash` provided as input in order to prove that the operation has been performed against the committed tree with Root Hash equal to `rootHash`
     - Verify that `computedRootSum` is less or equal than `assetsSum` in order to prove solvency
+   
 - `5. Share Proof`
     
     The exchange shares a proof to each of its users. It is important that the proof is the action of sharing the proof is initiated by the exchange rather than actively queried by the user. In the second scenario, the exchange gets to know which are the users that are interested in verifying the solvency of the exchange and which ones are not. The latter ones can be seen as “lazy” users that will likely not get involve any proof verification in the future. With this information the exchange can exclude this users from the liabilities computation in the future. Sharing the proof (for example via email), the exchange won’t know which users have verified their proof. 
