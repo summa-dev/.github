@@ -75,9 +75,7 @@ about its actual liabilities.
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
-### Demo it
-
-Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
+### [DEMO IT](https://github.com/pan-y-tomate/zk-pos-cli)
 
 ### How - Infrastructure
 
@@ -88,7 +86,7 @@ Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
 
 - [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency
 
-## User Flow
+### User Flow
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png" width="500" align="center" />
