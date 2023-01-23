@@ -88,6 +88,11 @@ Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
 
 ## User Flow
 
+<div align="center">
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png" width="500" align="center" />
+</div>
+<br>
+
 The flow of is the following:
 
 - `1. Proof of Assets`
@@ -103,7 +108,7 @@ The flow of is the following:
     
 - `2. Add DB to Merkle Sum Tree`
     
-    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/merkle-sum-tree).  This process is done privately by the exchange, the tree is never shared to the public
+    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/pyt-merkle-sum-tree).  This process is done privately by the exchange, the tree is never shared to the public
     
     The exchange sorts its users by their username and balance (of a certain assets) and add them to the Merkle Sum Tree.
     
@@ -131,7 +136,7 @@ The flow of is the following:
     
 - `4. Generate Proofs`
     
-    The exchange needs to generate a proof for each user following [these rules](https://github.com/pan-y-tomate/prover). Each proof is specific to a user.
+    The exchange needs to generate a proof for each user following [these rules](https://github.com/pan-y-tomate/pyt-circuits). Each proof is specific to a user.
     
     The exchange generates the Proof of Solvency inside a zkSNARK. The SNARK takes the following inputs:
     
@@ -140,7 +145,7 @@ The flow of is the following:
     - `pathIndices, siblingHashes and siblingSums` represents the Merkle proof of inclusion of an the user’s leaf inside the Merkle Sum Tree
     - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
     
-    ![Screenshot 2023-01-20 at 09.56.57.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/558697a5-1b44-4581-995a-db4eae3ffddb/Screenshot_2023-01-20_at_09.56.57.png)
+    ![circuit design](https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png)
     
     The SNARK performs the following operations:
     
@@ -154,17 +159,12 @@ The flow of is the following:
     
 - `6. Verify zk Posol`
 
-The user has to locally verify the proof that has been shared to them by the Exchange. It involves verifying that: 
+    The user has to locally verify the proof that has been shared to them by the Exchange. It involves verifying that: 
 
-- The cryptographic proof is valid
-- The `assetsSum` used as public input to the SNARK matches the one published in step 1
-- The `rootHash` used as public input to the SNARK matches the one published in step 3
-- The `leafHash` , public output of the SNARK matches the combination `H(usernameToBigInt, balance)` of the user
-
-<div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png" width="500" align="center" />
-</div>
-<br>
+    - The cryptographic proof is valid
+    - The `assetsSum` used as public input to the SNARK matches the one published in step 1
+    - The `rootHash` used as public input to the SNARK matches the one published in step 3
+    - The `leafHash` , public output of the SNARK matches the combination `H(usernameToBigInt, balance)` of the user
 
 ### Who
 
