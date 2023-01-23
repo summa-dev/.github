@@ -146,7 +146,7 @@ The flow of is the following:
     - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
 
     <div align="center">
-    <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png](https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png" width="700" align="center" />
+    <img src="https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png" width="700" align="center" />
     </div>
     <br>
         
@@ -188,7 +188,7 @@ The flow of is the following:
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" width="1000" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/phase2-pyt.png" height="700" align="center" />
 </div>
 <br>
 
