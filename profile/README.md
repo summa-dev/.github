@@ -75,16 +75,18 @@ about its actual liabilities.
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
-### [DEMO IT]()
+### How
 
-### How - Infrastructure
+#### Infrastructure
 
 - [pyt-merkle-sum-tree](https://github.com/orgs/pan-y-tomate/repositories) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
 - [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency
 
-### How - Dev Tooling
+#### Dev Tooling
 
 - [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency
+
+---
 
 ### User Flow
 
