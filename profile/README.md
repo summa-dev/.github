@@ -88,16 +88,78 @@ Test it out with our [CLI](https://github.com/pan-y-tomate/zk-pos-cli)
 
 ## User Flow
 
-The flow of the zkPOS system is the following:
+The flow of is the following:
 
-1. The Exchange generates and publishes its Proof of Assets by proving ownership of a particular address (for example by signing a specific message)
-2. The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the SMST
-3. The Exchange publishes the Root of the SMST computed inside the SMST to a Public Bulletin Board 
-4. Alice asks the Exchange for a Proof of Solvency
-5. The Exchange generates a (zk) Proof of Solvency for Alice and sends it to her. This is the proof that Alice (and her correct balance) were included in the SMST and the total sum of the liabilities is less or equal to the Assets controlled by the Exchange.
-6. The Exchange hands the Proof of Solvency (and the Public Signals used as inputs) to Alice
-7. Alice verifies the Proof of Liability 
-8. Alice executes further verification on the Public Signals used as input. The leaf must match Alice's username and balance. The assets must match the one published in the Proof of Assets (step 1). The root must match the one published on the Public Bulletin Board.
+- `1. Proof of Assets`
+    
+    The exchange requires to prove ownerhsip of an address with a certain amount of assets. In order to do so, the exchange needs to sign a certain message, for example H(`poSolID, address`) where 
+    
+    - `poSolID` is a sequential nonce unique for each Proof Of Solvency process.
+    - `address` is the address controlled by the exchange
+    
+    By signing this message, the Exchange is authenticating the following information: “I, Exchange, am attesting that I own `address` and this information will be used as part of the Proof Of Solvency `poSolID` ”.
+    
+    ********************************Attack Vector:******************************** At this point the exchange can bribe someone (ideally owning a large amount of assets) to sign the message on its behalf
+    
+- `2. Add DB to Merkle Sum Tree`
+    
+    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/merkle-sum-tree).  This process is done privately by the exchange, the tree is never shared to the public
+    
+    The exchange sorts its users by their username and balance (of a certain assets) and add them to the Merkle Sum Tree.
+    
+    | username | balance |
+    | --- | --- |
+    | alice | 3223 |
+    | bob | 100234 |
+    | carl | 42069 |
+    
+    The username is first parsed into its utf8 bytes representation and then converted to BigInt before getting added to the Sparse Merkle Tree.
+    
+    It is important here to use a username or a value that maps to a unique information about a specific user to avoid that a malicious exchange would reuse a entry for two different users.
+    
+    This action doesn’t require auditing or oversight. Any malicious operation that the exchange can perform here, such as 
+    
+    1. adding users with negative balances 
+    2. excluding users
+    3. understating users’ balances 
+    
+    will be detected either in the proof generation phase (1) or in the proof verification phase (2 and 3).
+    
+- `3. Publish Tree Root Hash`
+    
+    The exchange has to publish the `rootHash` of the tree generated in step 2 to a Public Bulletin Board (Blockchain or twitter for example). The `rootHash` represents the state of the Merkle Sum Tree. This action represents a commitment to that state. 
+    
+- `4. Generate Proofs`
+    
+    The exchange needs to generate a proof for each user following [these rules](https://github.com/pan-y-tomate/prover). Each proof is specific to a user.
+    
+    The exchange generates the Proof of Solvency inside a zkSNARK. The SNARK takes the following inputs:
+    
+    - `rootHash` is the hash of the merkle sum tree published in step 3 (public input)
+    - `leafUsername` is the username of the user whose proof is generated for in format. The username is first parsed into its utf8 bytes representation and then converted to BigInt to get to `leafUsername`
+    - `pathIndices, siblingHashes and siblingSums` represents the Merkle proof of inclusion of an the user’s leaf inside the Merkle Sum Tree
+    - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
+    
+    ![Screenshot 2023-01-20 at 09.56.57.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/558697a5-1b44-4581-995a-db4eae3ffddb/Screenshot_2023-01-20_at_09.56.57.png)
+    
+    The SNARK performs the following operations:
+    
+    - Perform the posiedon hash on the entry (`leafUsername, leafSum`) to get the `leafHash` (public output of the circuit)
+    - Build the Merkle Sum Tree starting from the leaf and its Merkle Proof to get to the `computedRootHash` and the `computedRootSum`
+    - Verify that `computedRootSum` is equal to the `rootHash` provided as input in order to prove that the operation has been performed against the committed tree with Root Hash equal to `rootHash`
+    - Verify that `computedRootSum` is less or equal than `assetsSum` in order to prove solvency
+- `5. Share Proof`
+    
+    The exchange shares a proof to each of its users. It is important that the proof is the action of sharing the proof is initiated by the exchange rather than actively queried by the user. In the second scenario, the exchange gets to know which are the users that are interested in verifying the solvency of the exchange and which ones are not. The latter ones can be seen as “lazy” users that will likely not get involve any proof verification in the future. With this information the exchange can exclude this users from the liabilities computation in the future. Sharing the proof (for example via email), the exchange won’t know which users have verified their proof. 
+    
+- `6. Verify zk Posol`
+
+The user has to locally verify the proof that has been shared to them by the Exchange. It involves verifying that: 
+
+- The cryptographic proof is valid
+- The `assetsSum` used as public input to the SNARK matches the one published in step 1
+- The `rootHash` used as public input to the SNARK matches the one published in step 3
+- The `leafHash` , public output of the SNARK matches the combination `H(usernameToBigInt, balance)` of the user
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png" width="500" align="center" />
