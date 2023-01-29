@@ -6,7 +6,7 @@ People don't trust Centralized Exchanges (CEXs)
 
 ## Solution 
 
-Pan y Tomate is an open source tool that employs cryptographic proofs to let CEXs create credible Proofs of Solvency (POS) while maintaining secrecy over their Business Information.
+Pan y Tomate is an open source tool that employs cryptography to let CEXs create credible Proofs of Solvency (POS) while maintaining secrecy over their Business Information.
 
 **Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
