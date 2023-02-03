@@ -1,4 +1,4 @@
-# Pan y Tomate
+# pan-y-tomate
 
 ## Problem Statement 
 
@@ -6,19 +6,19 @@ People don't trust Centralized Exchanges (CEXs)
 
 ## Solution 
 
-Pan y Tomate is an open source tool that employs cryptography to let CEXs create credible Proofs of Solvency (POS) while maintaining secrecy over their Business Information.
+pan-y-tomate is an open source tool that employs cryptography to let CEXs create credible Proofs of Solvency (POS) while maintaining secrecy over their Business Information.
 
 **Credibility** - The validity of the proof fully ensures that the rules are met. Each user of the exchange can verify the validity of the proof without having to rely or trust auditors or other external parties.
 
 **Secrecy** - The Business Information of the exchange, such as the total balances of each users, the number of users and total amount of liabilities are not revealed to the public.
 
-### [👷Join the Builders Discussion](https://github.com/orgs/pan-y-tomate/discussions) - [🕹️ Demo Pan y Tomate](https://github.com/pan-y-tomate/pyt-pos)
+### [👷Join the Builders Discussion](https://github.com/orgs/pan-y-tomate/discussions) - [🕹️ Jump to the APIs](https://github.com/pan-y-tomate/pyt-pos)
 
 ---
 
 ### Why?
 
-Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. In particular, [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users.
+Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
 $Assets \geq  Liabilities$ 
 
@@ -28,7 +28,7 @@ The liabilities are the sum of the balances of the customers operating on the ex
 
 Proving liabilities is tricker. 
 
-The simplest solution would be opening up the database and disclosing every user-balance entry.  By summing all the balances together and comparing the sum to the total assets of the exchange is possible to verify the solvency of the exchange.
+The simplest solution would be opening up the database and disclosing every user-balance entry. Individual users can verify that they have been included in the list. By summing all the balances together and comparing the sum to the total assets of the exchange is possible to verify the solvency of the exchange.
 
 This Proof of Liability implementation is **credible** in the eye of customers but sacrifices the **secrecy** of the exchange's (and its customers!)  data.
 
@@ -50,7 +50,7 @@ This solution is only partially private because critical information are leaked 
 
 ## What
 
-Pan y Tomate makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges (CEX) generate a **credible** and **secret** Proof of Solvency. 
+pan-y-tomate makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-snarks) to let Centralized Exchanges (CEX) generate a **credible** and **secret** Proof of Solvency. 
 
 **Credbile** means that user can verify the Solvency of a CEX independently and without having to trust any auditor.
 **Secret** means without leaking to the public any user's private data or other Business Intelligence Data.
@@ -62,9 +62,11 @@ Pan y Tomate makes use of [zkSNARKs](https://minaprotocol.com/blog/what-are-zk-s
 
 Ownership of assets is achieved by signing a specific message from their wallet. From that, it is possible to extract the exact amount of assets controlled by the CEX, at that specific time. 
 
-The Liabilities of an Exchange are the sum of funds owned by the customers operating on the exchange. This balances are computed inside a [Merkle Sum Tree](https://github.com/orgs/pan-y-tomate/repositories). This Merkle Tree is private and gets never shared to the customers.
+The Liabilities of an Exchange are the sum of funds owned by the customers operating on the exchange. These balances, together with the identifiers of the users, are computed inside a [Merkle Sum Tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree). This Merkle Tree is private and never gets shared to the public.
 
-[pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
+The Exchange then commits to the State of the Merkle Tree by publishing its root hash on a Public Bulletin Board.
+
+The Merkle Tree is then used to generate a Proof of Solvency. In particular, the exchange generates a Proof of Solvency for each user. This proof demonstrates that the user has been included in the Merkle Tree that computes the total liabilities and that the total amount of liabilities is less than the total amount of assets.
 
 Starting from the proof, a user can verify that they have been included (with their correct balance) in the computation of the Liabilities of the Exchange and that the total amount of Liabilities is less than its controlled Assets. 
 
@@ -72,29 +74,36 @@ The rule is simple: if enough users request a Proof of Liability and they can al
 
 The proof can be fastly verifiable and doesn't leak any data about the number of users that operate on the exchange, the funds owned by other users or even the total amount of liabilities of the exchange itself! 
 
-### How
 
-#### Infrastructure
+[pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency is a set of APIs that allows an exchange to plug in their database and generate a zk Proof to be shared with their users. 
 
-- [pyt-merkle-sum-tree](https://github.com/orgs/pan-y-tomate/repositories) is a TypeScript library where the entries of the exchange (`username -> balance`) are added to a Merkle Sum Tree data structure. The total sum of the leaves represents the total liabilities of a CEX.
-- [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate its Proof of Solvency
 
-#### Dev Tooling
+## How - Infrastructure
 
-- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency
+- [pyt-merkle-sum-tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains the sum of all the entries, representing the total liabilities of a CEX.
+- [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
+
+## How - APIs
+
+- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency. The library contains two main classes:
+
+    - `Prover` contains the core APis to let CEXs provide credible Proof Of Solvency to its users.
+    The proof doesn't reveal any information such as the total balances of each user, the number of users and the total amount of liabilities of the exchange.
+
+    - `userVerifier` is a class that contains the core APIs to let a user verify the proof that has been provided them by the exchange
 
 ---
 
 ### User Flow
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/zk-pos-flow.png" width="500" align="center" />
+<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/pyt-flow.png" width="500" align="center" />
 </div>
 <br>
 
 The flow of is the following:
 
-- `1. Proof of Assets`
+- `1. Proof of Assets` (***not part of this specification***)
     
     The exchange is required to prove ownerhsip of an address with a certain amount of assets. In order to do so, the exchange needs to sign a certain message, for example H(`poSolID, address`) where 
     
@@ -105,9 +114,9 @@ The flow of is the following:
     
     ********************************Attack Vector:******************************** At this point the exchange can bribe someone (ideally owning a large amount of assets) to sign the message on its behalf
     
-- `2. Add DB to Merkle Sum Tree`
+- `2. Build Merkle Sum Tree`
     
-    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST according to these [rules](https://github.com/pan-y-tomate/pyt-merkle-sum-tree). This process is done privately by the exchange, the tree is never shared to the public.
+    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST. This process is done privately by the exchange, the tree is never shared to the public.
     
     The exchange sorts its users by their username and balance (of a certain assets) and add them to the Merkle Sum Tree.
     
@@ -118,6 +127,10 @@ The flow of is the following:
     | carl | 42069 |
     
     The username is first parsed into its utf8 bytes representation and then converted to BigInt before getting added to the Sparse Merkle Tree.
+
+    ```
+    const tree = new IncrementalMerkleSumTree(DB.csv)
+    ``` 
     
     It is important here to use a username or a value that maps to a unique information about a specific user to avoid that a malicious exchange would reuse the same entry for two different users.
     
@@ -128,47 +141,35 @@ The flow of is the following:
     3. understating users’ balances 
     
     will be detected either in the proof generation phase (case 1) or in the proof verification phase (cases 2 and 3).
+
+    The APIs to generate the Merkle Sum Tree are available in [pyt-merkle-sum-tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree)
     
-- `3. Publish Tree Root Hash`
+- `3. Publish Tree Root Hash` (***not part of this specification***)
     
     The exchange has to publish the `rootHash` of the tree generated in step 2 to a Public Bulletin Board (Blockchain or Twitter for example). The `rootHash` represents the state of the Merkle Sum Tree. This action represents a commitment to that state. 
     
 - `4. Generate Proofs`
     
-    The exchange needs to generate a proof for each user following [these rules](https://github.com/pan-y-tomate/pyt-circuits). Each proof is specific to a user.
-    
-    The exchange generates the Proof of Solvency inside a zkSNARK. The SNARK takes the following inputs:
-    
-    - `rootHash` is the hash of the merkle sum tree published in step 3 (public input)
-    - `username` is the username of the user whose proof is generated for in BigInt format. The username is first parsed into its utf8 bytes representation and then converted to BigInt
-    - `balance` is the balance of the user whose proof is generated for in BigInt format.
-    - `pathIndices, siblingHashes and siblingSums` represents the Merkle proof of inclusion of an the user’s leaf inside the Merkle Sum Tree
-    - `assetsSum`  are the total assets owned by the exchange as declared in step 1 (public input)
+    The exchange needs to generate a proof for each user following the rules encoded in [these circuits](https://github.com/pan-y-tomate/pyt-circuits). Each proof is specific to a user.
 
-    <div align="center">
-    <img src="https://github.com/pan-y-tomate/pyt-circuits/blob/main/imgs/pos.png" width="700" align="center" />
-    </div>
-    <br>
-        
-    The SNARK performs the following operations:
-    
-    - Perform the posiedon hash on the entry (`username, balance`) to get the `leafHash` (public output of the circuit)
-    - Build the Merkle Sum Tree starting from the leaf and its Merkle Proof to get to the `computedRootHash` and the `computedRootSum`
-    - Verify that `computedRootSum` is equal to the `rootHash` provided as input in order to prove that the operation has been performed against the committed tree with Root Hash equal to `rootHash`
-    - Verify that `computedRootSum` is less or equal than `assetsSum` in order to prove solvency
+    ```
+    const proof = await Prover.generateProofForUser(userIndexInDB)
+    ``` 
+
+    The APIs to generate proofs are available in [pyt-pos](https://github.com/pan-y-tomate/pyt-pos).
    
-- `5. Share Proof`
+- `5. Share Proof` (***not part of this specification***)
     
-    The exchange shares a proof to each of its users. It is important that the proof is the action of sharing the proof is initiated by the exchange rather than actively queried by the user. In the second scenario, the exchange gets to know which are the users that are interested in verifying the solvency of the exchange and which ones are not. The latter ones can be seen as “lazy” users that will likely not get involve any proof verification in the future. With this information the exchange can exclude this users from the liabilities computation in the future. Sharing the proof (for example via email), the exchange won’t know which users have verified their proof. 
+    The exchange shares a proof to each of its users. It is important that the proof is the action of sharing the proof is initiated by the exchange rather than actively queried by the user. In the second scenario, the exchange gets to know which are the users that are interested in verifying the solvency of the exchange and which ones are not. The latter ones can be seen as “lazy” users that will likely not get involve any proof verification in the future. With this information the exchange can exclude this users from the liabilities computation in the future. By sharing the proofs to each user (for example via email), the exchange doesn't get to know which users have verified their proof. 
     
-- `6. Verify zk Posol`
+- `6. Verify proof`
 
     The user has to locally verify the proof that has been shared to them by the Exchange. It involves verifying that: 
 
     - The cryptographic proof is valid
+    - The `leafHash`, public output of the SNARK, matches the combination `H(usernameToBigInt, balance)` of the user
     - The `assetsSum` used as public input to the SNARK matches the one published in step 1
     - The `rootHash` used as public input to the SNARK matches the one published in step 3
-    - The `leafHash` , public output of the SNARK matches the combination `H(usernameToBigInt, balance)` of the user
 
 ### Phase 2 - Beyond Proof of Solvency 
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
