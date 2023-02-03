@@ -14,9 +14,7 @@ pan-y-tomate is an open source tool that employs cryptography to let CEXs create
 
 ### [👷Join the Builders Discussion](https://github.com/orgs/pan-y-tomate/discussions) - [🕹️ Jump to the APIs](https://github.com/pan-y-tomate/pyt-pos)
 
----
-
-### Why?
+## Why?
 
 Since the FTX collapse, many exchanges are exploring [ways](https://niccarter.info/proof-of-reserves/) to demonstrate their solvency to their customers. [Proof of Solvency](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html) is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
@@ -92,9 +90,8 @@ The proof can be fastly verifiable and doesn't leak any data about the number of
 
     - `userVerifier` is a class that contains the core APIs to let a user verify the proof that has been provided them by the exchange
 
----
 
-### User Flow
+## User Flow
 
 <div align="center">
 <img src="https://github.com/pan-y-tomate/.github/blob/main/profile/pyt-flow.png" width="500" align="center" />
@@ -171,7 +168,7 @@ The flow of is the following:
     - The `assetsSum` used as public input to the SNARK matches the one published in step 1
     - The `rootHash` used as public input to the SNARK matches the one published in step 3
 
-### Phase 2 - Beyond Proof of Solvency 
+## Phase 2 - Beyond Proof of Solvency 
 Phase 2 of pan-y-tomate will bring the same model to a bigger set of applications that struggle with the same problem: lack of trust from their users.
 
 <div align="center">
@@ -179,7 +176,7 @@ Phase 2 of pan-y-tomate will bring the same model to a bigger set of application
 </div>
 <br>
 
-### Further Resources
+## Further Resources
 
 - [More on zkSNARKs](https://www.youtube.com/watch?v=lwbt-a8PLRw)
 - [Having a safe CEX: proof of solvency and beyond - Vitalik Buterin](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html)
