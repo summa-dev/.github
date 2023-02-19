@@ -1,10 +1,10 @@
 # ZIFKO
 
-Zifko is a zero knowledge proof of solvency (zkPOSOL) solution.
+Zifko is a zero knowledge proof of solvency solution.
 
 Proof of Solvency is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
-## Background on zk and POSOL 
+## Background on zk and Proof of Solvency 
 
 - [More on zkSNARKs](https://www.youtube.com/watch?v=lwbt-a8PLRw)
 - [Having a safe CEX: proof of solvency and beyond - Vitalik Buterin](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html)
@@ -37,7 +37,7 @@ without revealing critical information about their business, such as:
 
 - [pyt-merkle-sum-tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
 - [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
-- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify pan-y-tomate Proof of Solvency. The library contains two main classes:
+- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
 
     - `Prover` contains the core APis to let CEXs provide credible Proof Of Solvency to its users.
     The proof doesn't reveal any information such as the total balances of each user, the number of users and the total amount of liabilities of the exchange.
@@ -124,7 +124,7 @@ The flow of is the following:
     - The `leafHash`, public output of the SNARK, matches the combination `H(usernameToBigInt, balance)` of the user
     - The `assetsSum` used as public input to the SNARK matches the one published in step 1
     - The `rootHash` used as public input to the SNARK matches the one published in step 3.
-    
+
 
     The rule is simple: if enough users request a Proof of Liability and they can all verify it, it becomes evident that the Exchange is not lying or understating its liabilities. If just one user cannot verify the proof, the Exchange is lying about its actual liabilities. 
 
