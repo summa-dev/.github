@@ -1,6 +1,6 @@
-# ZIFKO
+# pan-y-tomate
 
-Zifko is a zero knowledge proof of solvency solution.
+pan-y-tomate is a zero knowledge proof of solvency solution.
 
 Proof of Solvency is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
@@ -15,7 +15,7 @@ Proof of Solvency is achieved by proving that the assets under control of the ex
 
 ## Zero Knowledge of What?
 
-By using Zifko, centralized exchanges (CEXs) can prove to their users that they are solvent, namely that this expression holds true:
+By using pan-y-tomate, centralized exchanges (CEXs) can prove to their users that they are solvent, namely that this expression holds true:
 
 $Assets \geq  Liabilities$
 
