@@ -35,9 +35,9 @@ without revealing critical information about their business, such as:
 
 ## Building Blocks 
 
-- [pyt-merkle-sum-tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
-- [pyt-circuits](https://github.com/pan-y-tomate/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
-- [pyt-pos](https://github.com/pan-y-tomate/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
+- [pyt-merkle-sum-tree](https://github.com/zk-safe-cex/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
+- [pyt-circuits](https://github.com/zk-safe-cex/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
+- [pyt-pos](https://github.com/zk-safe-cex/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
 
     - `Prover` contains the core APis to let CEXs provide credible Proof Of Solvency to its users.
     The proof doesn't reveal any information such as the total balances of each user, the number of users and the total amount of liabilities of the exchange.
