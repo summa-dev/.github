@@ -1,6 +1,6 @@
-# zk-safe-cex
+# summa
 
-zk-safe-cex is a zero knowledge proof of solvency solution.
+summa is a zero knowledge proof of solvency solution.
 
 Proof of Solvency is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
@@ -15,7 +15,7 @@ Proof of Solvency is achieved by proving that the assets under control of the ex
 
 ## Zero Knowledge of What?
 
-By using zk-safe-cex, centralized exchanges (CEXs) can prove to their users that they are solvent, namely that this expression holds true:
+By using summa, centralized exchanges (CEXs) can prove to their users that they are solvent, namely that this expression holds true:
 
 $Assets \geq  Liabilities$
 
@@ -29,15 +29,15 @@ without revealing critical information about their business, such as:
 
 ---
 
-[**👷Join the Builders Discussion**](https://github.com/orgs/pan-y-tomate/discussions)
+[**👷Join the Builders Discussion**](https://github.com/orgs/summa/discussions)
 
 ---
 
 ## Building Blocks 
 
-- [pyt-merkle-sum-tree](https://github.com/zk-safe-cex/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
-- [pyt-circuits](https://github.com/zk-safe-cex/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
-- [pyt-pos](https://github.com/zk-safe-cex/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
+- [pyt-merkle-sum-tree](https://github.com/summa/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
+- [pyt-circuits](https://github.com/summa/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
+- [pyt-pos](https://github.com/summa/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
 
     - `Prover` contains the core APis to let CEXs provide credible Proof Of Solvency to its users.
     The proof doesn't reveal any information such as the total balances of each user, the number of users and the total amount of liabilities of the exchange.
@@ -47,7 +47,7 @@ without revealing critical information about their business, such as:
 ## Protocol Flow
 
 <div align="center">
-<img src="https://github.com/pan-y-tomate/.github/blob/main/profile/pyt-flow.png" width="500" align="center" />
+<img src="https://github.com/summa/.github/blob/main/profile/pyt-flow.png" width="500" align="center" />
 </div>
 <br>
 
@@ -94,7 +94,7 @@ The flow of is the following:
     
     will be detected either in the proof generation phase (case 1) or in the proof verification phase (cases 2 and 3).
 
-    The APIs to generate the Merkle Sum Tree are available in [pyt-merkle-sum-tree](https://github.com/pan-y-tomate/pyt-merkle-sum-tree)
+    The APIs to generate the Merkle Sum Tree are available in [pyt-merkle-sum-tree](https://github.com/summa/pyt-merkle-sum-tree)
     
 - `3. Publish Tree Root Hash` (***not part of this specification***)
     
@@ -102,13 +102,13 @@ The flow of is the following:
     
 - `4. Generate Proofs`
     
-    The exchange needs to generate a proof for each user following the rules encoded in [these circuits](https://github.com/pan-y-tomate/pyt-circuits). Each proof is specific to a user. This proof demonstrates that the user has been included in the Merkle Tree that computes the total liabilities and that the total amount of liabilities is less than the total amount of assets (as made available from step 1).
+    The exchange needs to generate a proof for each user following the rules encoded in [these circuits](https://github.com/summa/pyt-circuits). Each proof is specific to a user. This proof demonstrates that the user has been included in the Merkle Tree that computes the total liabilities and that the total amount of liabilities is less than the total amount of assets (as made available from step 1).
 
     ```
     const proof = await Prover.generateProofForUser(userIndexInDB)
     ``` 
 
-    The APIs to generate proofs are available in [pyt-pos](https://github.com/pan-y-tomate/pyt-pos).
+    The APIs to generate proofs are available in [pyt-pos](https://github.com/summa/pyt-pos).
    
 - `5. Share Proof` (***not part of this specification***)
     
