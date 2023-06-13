@@ -1,6 +1,16 @@
 # summa
 
-summa is a zero knowledge proof of solvency solution.
+summa is a zero knowledge proof of solvency solution. Developed as part of [PSE](https://appliedzkp.org/) and [Ethereum Foundation](https://ethereum.foundation/)
+
+<p align="center">
+  <img src="https://hackmd.io/_uploads/SkdQSk5H3.png" width="100" height="100" alt="Image 1">
+  &nbsp; &nbsp; &nbsp;
+  <img src="https://hackmd.io/_uploads/HyuEr1cB2.png" width="180" height="80" alt="Image 2">
+  &nbsp; &nbsp; &nbsp;
+  <img src="https://hackmd.io/_uploads/HyZ0rycS2.png" width="70" height="100" alt="Image 3">
+</p>
+
+
 
 Proof of Solvency is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
@@ -12,6 +22,12 @@ Proof of Solvency is achieved by proving that the assets under control of the ex
 - [ZK Podcast - Proof of Solvency with Kostas Chalkias](https://zeroknowledge.fm/257-2/)
 - [Generalized Proof of Liabilities - Kostas Chalkias Yan Ji](https://eprint.iacr.org/2021/1350.pdf)
 - [How can Cryptographic Proofs Provide a Guarantee of Financial Solvency? - Eli Ben Sasson](https://www.coincenter.org/how-can-cryptographic-proofs-provide-a-guarantee-of-financial-solvency/)
+
+## Public Presentations 
+
+- Ho Chi Min City - 0xParc/PSE Residency - 6/4/23 - [Slides](https://docs.google.com/presentation/d/1RidLMZTsAY0i0ENZYasL1LfsLngataGIGxaIJCqgGng/edit?usp=sharing), [Recording](https://youtu.be/F-Q31AwuTCU)
+- Barcelona - 15/4/23 - [Slides](https://docs.google.com/presentation/d/1Qop5xDCThW5eIB_tY9Nd_5FwDn5DKSJj75nv3nwUaWU/edit?usp=sharing)
+- Naples - Spaghetteth - 25/5/23 - [Slides](https://docs.google.com/presentation/d/1zJz412Ca0rkTuVg8jy3OBvZGOsxYL0EZXhYfBUK2vwo/edit?usp=sharing), [Recording](https://youtu.be/gdGqGC31_yU)
 
 ## Zero Knowledge of What?
 
