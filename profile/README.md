@@ -1,6 +1,6 @@
-# summa
+# Summa
 
-summa is a zero knowledge proof of solvency solution. Developed as part of [PSE](https://appliedzkp.org/) and [Ethereum Foundation](https://ethereum.foundation/)
+Summa is a zero-knowledge proof of solvency solution. Developed within [PSE](https://appliedzkp.org/) and [Ethereum Foundation](https://ethereum.foundation/)
 
 <p align="center">
   <img src="https://hackmd.io/_uploads/SkdQSk5H3.png" width="100" height="100" alt="Image 1">
@@ -10,9 +10,11 @@ summa is a zero knowledge proof of solvency solution. Developed as part of [PSE]
   <img src="https://hackmd.io/_uploads/HyZ0rycS2.png" width="70" height="100" alt="Image 3">
 </p>
 
+Summa lets centralized exchanges (CEXes) generate proof of solvency while keeping their sensitive data private. Proof of Solvency means that the assets under the control of the CEX are greater than its liabilities.
 
+$Assets \geq  Liabilities$
 
-Proof of Solvency is achieved by proving that the assets under control of the exchange are greater than the liabilities. Or in simple terms, that the exchange have the assets to cover all the balances of its users so that they can withdraw their funds at any time.
+Or, in simpler terms, the CEX has the assets to cover all the balances of its users so that they can withdraw their funds at any time.
 
 ## Background on zk and Proof of Solvency 
 
@@ -29,125 +31,116 @@ Proof of Solvency is achieved by proving that the assets under control of the ex
 - Barcelona - 15/4/23 - [Slides](https://docs.google.com/presentation/d/1Qop5xDCThW5eIB_tY9Nd_5FwDn5DKSJj75nv3nwUaWU/edit?usp=sharing)
 - Naples - Spaghetteth - 25/5/23 - [Slides](https://docs.google.com/presentation/d/1zJz412Ca0rkTuVg8jy3OBvZGOsxYL0EZXhYfBUK2vwo/edit?usp=sharing), [Recording](https://youtu.be/gdGqGC31_yU)
 
-## Zero Knowledge of What?
+## Why Zero Knowledge?
 
-By using summa, centralized exchanges (CEXs) can prove to their users that they are solvent, namely that this expression holds true:
+Zero Knowledge Proof, particularly zkSNARKs, allows the prover to achieve **computational integrity guarantee**. Namely, given a proof π and a computation whose rules are known by everyone, π tells that the output is the result from running the computation on certain inputs according to the rules. On top of that, zkSNARKs allow the prover to keep certain inputs private. Summa leverages zkSNARKs to:
 
-$Assets \geq  Liabilities$
-
-without revealing critical information about their business, such as:
-
-- Indivudual user information such as their balances and usernames
-- The total number of users
-- The total amount of liabilities
-- The total amount of assets (WIP)
-- The addresses of the wallets controlled by the CEX that hold the assets (WIP)
-
----
-
-[**👷Join the Builders Discussion**](https://github.com/orgs/summa-dev/discussions)
-
----
+- Remove reliances on trusted third parties such as auditors
+- Let the CEX prove to their users that they are solvent without revealing sensitive information such as:
+  - Individual user information such as their balances and usernames
+  - The total number of users
+  - The total amount of liabilities
 
 ## Building Blocks 
 
-- [pyt-merkle-sum-tree](https://github.com/summa-dev/pyt-merkle-sum-tree) is a TypeScript library to create Merkle Sum Trees starting from `username -> balance` entries. The root of the tree contains an hash committment of CEX's state together with the sum of all the entries, representing the total liabilities of a CEX.
-- [pyt-circuits](https://github.com/summa-dev/pyt-circuits) contains the circuits (written in circom) enforcing the rules that the Exchange must abide by to generate a Proof of Solvency for a specific user.
-- [pyt-pos](https://github.com/summa-dev/pyt-pos) is a TypeScript Library to generate and verify Proof of Solvency. The library contains two main classes:
-
-    - `Prover` contains the core APis to let CEXs provide credible Proof Of Solvency to its users.
-    The proof doesn't reveal any information such as the total balances of each user, the number of users and the total amount of liabilities of the exchange.
-
-    - `userVerifier` is a class that contains the core APIs to let a user verify the proof that has been provided them by the exchange.
+- [Merkle Sum Tree](https://github.com/summa-dev/summa-solvency/tree/master/zk_prover/src/merkle_sum_tree) is the core data structure used by the CEX to store the data related to users' liabilities. The root of the MST contains a commitment to the state of the total CEX's liabilities per currency at a specific timestamp.
+- [ZK Circuits](https://github.com/summa-dev/summa-solvency/tree/master/zk_prover/src/circuits) contain the two core circuits of Summa:
+  - `Solvency`, allows a CEX to prove that its assets are greater than its liabilities
+  - `MstInclusion`, allows a CEX to prove to a user that they have been accounted for correctly in the liabilities
+- [Summa Smart Contract](https://github.com/summa-dev/summa-solvency/tree/master/contracts) allows a CEX to verify its proof of solvency on-chain and provide common knowledge of the state of its assets and liabilities.
 
 ## Protocol Flow
 
 <div align="center">
-<img src="https://github.com/summa-dev/.github/blob/main/profile/pyt-flow.png" width="500" align="center" />
+<img src="https://github.com/summa-dev/.github/blob/main/profile/summa-uml.png" width="500" align="center" />
 </div>
 <br>
 
-The flow of is the following:
+- `1. Build MST`
 
-- `1. Proof of Assets` (***not part of this specification***)
-    
-    The exchange is required to prove ownerhsip of an address with a certain amount of assets. In order to do so, the exchange needs to sign a certain message, for example H(`poSolID, address`) where 
-    
-    - `poSolID` is a sequential nonce unique for each Proof Of Solvency process.
-    - `address` is the address controlled by the exchange
-    
-    By signing this message, the Exchange is authenticating the following information: “I, Exchange, am attesting that I own `address` and this information will be used as part of the Proof Of Solvency `poSolID` ”.
-    
-    ********************************Attack Vector:******************************** At this point the exchange can bribe someone (ideally owning a large amount of assets) to sign the message on its behalf
-    
-- `2. Build Merkle Sum Tree`
-    
-    The Exchange extracts all the users' entries from their database (`username -> balance`) and adds them to the MST. 
-    
-    **This process is done privately by the exchange, the tree is never shared to the public**
-    
-    The exchange sorts its users by their username and balance (of a certain assets) and add them to the Merkle Sum Tree.
-    
-    | username | balance |
-    | --- | --- |
-    | alice | 3223 |
-    | bob | 100234 |
-    | carl | 42069 |
-    
-    The username is first parsed into its utf8 bytes representation and then converted to BigInt before getting added to the Sparse Merkle Tree.
+  The Exchange extracts all the users' entries from their database (`username -> balanceEth, balanceBTC`) and adds them to the Merkle Sum Tree.
 
-    ```
-    const tree = new IncrementalMerkleSumTree(DB.csv)
-    ``` 
-    
-    It is important here to use a username or a value that maps to a unique information about a specific user to avoid that a malicious exchange would reuse the same entry for two different users.
-    
-    This action doesn’t require auditing or oversight. Any malicious operation that the exchange can perform here, such as 
+  Note: for this example we are only gonna use ETH and BTC as currency, but this can be extended to any existing currency on any existing blockchain.
+  
+    | username | balanceEth | balanceBTC |
+    | --- | --- | --- | 
+    | alice | 3223 | 34 |
+    | bob | 100234 | 0.1 |
+    | carl | 42069 | 25 | 
+   
+   **This action is performed privately by the CEX; the tree is never shared with the public.**
+  
+  This action doesn’t require auditing or oversight. Any malicious operation that the CEX can perform here, such as:
     
     1. adding users with negative balances 
     2. excluding users
-    3. understating users’ balances 
-    
-    will be detected either in the proof generation phase (case 1) or in the proof verification phase (cases 2 and 3).
+    3. understating users’ balances
+  
+  will be detected when the π of Inclusion is handed over to individual users.
 
-    The APIs to generate the Merkle Sum Tree are available in [pyt-merkle-sum-tree](https://github.com/summa-dev/pyt-merkle-sum-tree)
-    
-- `3. Publish Tree Root Hash` (***not part of this specification***)
-    
-    The exchange has to publish the `rootHash` of the tree generated in step 2 to a Public Bulletin Board (Blockchain or Twitter for example). The `rootHash` represents the state of the Merkle Sum Tree. This action represents a commitment to that state. 
-    
-- `4. Generate Proofs`
-    
-    The exchange needs to generate a proof for each user following the rules encoded in [these circuits](https://github.com/summa-dev/pyt-circuits). Each proof is specific to a user. This proof demonstrates that the user has been included in the Merkle Tree that computes the total liabilities and that the total amount of liabilities is less than the total amount of assets (as made available from step 1).
+- `2. π of Assets`
 
-    ```
-    const proof = await Prover.generateProofForUser(userIndexInDB)
-    ``` 
+  To prove control over certain assets (denominated in different cryptocurrencies), the CEX will group its wallets and sign a specific message `summa proof of solvency {exchangeId}` with each of them:
 
-    The APIs to generate proofs are available in [pyt-pos](https://github.com/summa-dev/pyt-pos).
-   
-- `5. Share Proof` (***not part of this specification***)
+    *ETH*
     
-    The exchange shares a proof to each of its users. It is important that the proof is the action of sharing the proof is initiated by the exchange rather than actively queried by the user. In the second scenario, the exchange gets to know which are the users that are interested in verifying the solvency of the exchange and which ones are not. The latter ones can be seen as “lazy” users that will likely not get involve any proof verification in the future. With this information the exchange can exclude this users from the liabilities computation in the future. By sharing the proofs to each user (for example via email), the exchange doesn't get to know which users have verified their proof. 
+    | pubKey   | signature        |
+    | -------- | ----------       |
+    | 0x123    | 0xdaf23784       |
+    | 0x456    | 0xfff99999       |
+    | 0x789    | 0xabc00111       |
     
-- `6. Verify proof`
+    *BTC*
 
-    The user has to locally verify the proof that has been shared to them by the Exchange. Starting from the proof, a user can verify that they have been included (with their correct balance) in the computation of the Liabilities of the Exchange and that the total amount of Liabilities is less than its controlled Assets. 
-    
-    It involves verifying that: 
+    | pubKey                             | signature  |
+    | ---------------------------------- | ---------- |
+    | 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa | 0x9543aaaa |
+    | 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2 | 0x54432ffa |
+    | 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy | 0xdddaaaa9 |
+
+  The Smart Contract (deployed on Ethereum, or any other EVM-compatible chain) will check the validity of each signature to verify that the CEX is in control of such wallets. Using a mix of on-chain data and oracles, the Smart Contract will fetch information about the assets controlled by such wallets denominated in different cryptocurrencies from different blockchains.
+
+- `3. π of Solvency`
+
+  π of Solvency means proving that $Assets \geq  Liabilities$. The CEX will generate a zk proof that the amount of assets they control (as a result of step 2) is greater than the liabilities of the CEX per currency. 
+  
+  The public inputs of the circuit are `assets_sum_eth`, `assets_sum_btc` and `mst_root`. 
+  
+    The verification of the π of Solvency happens programmatically inside the smart contract. It involves verifying that: 
 
     - The cryptographic proof is valid
-    - The `leafHash`, public output of the SNARK, matches the combination `H(usernameToBigInt, balance)` of the user
-    - The `assetsSum` used as public input to the SNARK matches the one published in step 1
-    - The `rootHash` used as public input to the SNARK matches the one published in step 3.
+    - The `assets_sum_eth` and `assets_sum_btc`, public input of the SNARK, match the actual assets owned by the CEX as a result of step 2
+  
+  If the proof verifies, an event will be emitted by streaming `mst_root` to the public. This will be required in the next step for user-side proof verification.
+  
+  Note that no data about the liabilities of the CEX is leaked here.
+    
+  [Step 2 and Step 3 will actually happen concurrently in a single transaction]
 
+- `4. π of Inclusion`
 
-    The rule is simple: if enough users request a Proof of Liability and they can all verify it, it becomes evident that the Exchange is not lying or understating its liabilities. If just one user cannot verify the proof, the Exchange is lying about its actual liabilities. 
+  At this point, the CEX has proven its solvency, but how the liabilities were built could have been malicious. For example, a CEX might have arbitrarily excluded "whales" from the liabilities account in order to achieve a dishonest proof of solvency.
+  
+  π of Inclusion means proving that a user, identified by its username and its balances denominated in different currencies, has been accounted for correctly in the liabilities. In practice, it means generating a zk proof that an entry `username -> balanceEth, balanceBTC, ...` is included in a Merkle sum tree with a root equal to the one published on-chain in the previous step. The π doesn't reveal any information about the balances of any other users or even the aggregated liabilities of the CEX.
 
+  If any user finds out that they haven't been included in the MST, or have been included with an understated balance, a warning related to the potential non-solvency of the CEX has to be raised.
 
+  The proofs are generated by the CEX and shared with each individual user.
 
+  The verification of the π of Inclusion happens locally on the user device. It involves verifying that: 
 
+    - The cryptographic proof is valid
+    - The `leafHash`, public input of the SNARK, matches the combination `H(username, balanceEth, balanceBTC)` of the user
+    - The `rootHash` used as public input to the SNARK matches the one published on-chain in step 3.
+         
+    The rule is simple: if enough users request a Proof of Liability and they can all verify it, it becomes evident that the Exchange is not lying or understating its liabilities. If just one user cannot verify their π of Inclusion, the Exchange lies about its liabilities.
 
+## Further Remarks
+
+- The zkSNARK backend used by Summa is [Halo2 - PSE Fork](https://github.com/privacy-scaling-explorations/halo2). Such prover backend allows us to achieve great performance ([benchmarks](https://github.com/summa-dev/summa-solvency/tree/master/zk_prover#current-benchmarks)), be memory safe (it's implemented in Rust) and to rely on a universal trusted setup rather than a circuit-specific trusted setup. This last feature is given by the fact that Halo2 uses a PLONK prover in the backend, compared to other prover systems such as GROTH16, which relies on a circuit-specific trusted setup, increasing trust assumptions.
+- Even though the smart contract is deployed on a EVM chain, the proof of solvency protocol supports any currency
+- The Merkle Sum Tree supports the multi-currency feature, so liabilities denominated in any number of assets can be accumulated in a single merkle sum tree.
+- Further privacy features (privacy of the total amount of assets owned by the CEX and on addresses of the wallets controlled by the CEX) will be enabled as part of the next release
 
 
 
