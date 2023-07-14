@@ -52,13 +52,19 @@ Zero Knowledge Proof, particularly zkSNARKs, allows the prover to achieve **comp
 ## Protocol Flow
 
 <div align="center">
-<img src="https://github.com/summa-dev/.github/blob/main/profile/summa-uml.png" width="500" align="center" />
+<img src="https://github.com/summa-dev/.github/blob/main/profile/summa_uml.png" width="500" align="center" />
 </div>
 <br>
 
-- `1. Build MST`
+- `1. Build Snapshot`
+  
+  In order for the process to start, the CEX needs to build a `Snapshot` which is a data container for the CEX liabilities and the CEX wallets.
 
-  The Exchange extracts all the users' entries from their database (`username -> balanceEth, balanceBTC`) and adds them to the Merkle Sum Tree.
+  The CEX needs to provide two csv files, one for the liabilities and one for the accounts controlled by the CEX.
+
+  **Liabilites**
+    
+  The Exchange extracts all the users' entries from their database (`username -> balanceEth, balanceBTC`) in a csv file and pass it to the `Snapshot`. Under the hood, a Merkle Sum Tree will be build starting from these entries.
 
   Note: for this example we are only gonna use ETH and BTC as currency, but this can be extended to any existing currency on any existing blockchain.
   
@@ -66,9 +72,10 @@ Zero Knowledge Proof, particularly zkSNARKs, allows the prover to achieve **comp
     | --- | --- | --- | 
     | alice | 3223 | 34 |
     | bob | 100234 | 0.1 |
-    | carl | 42069 | 25 | 
+    | carl | 42069 | 25 |
+  
    
-   **This action is performed privately by the CEX; the tree is never shared with the public.**
+  This action is performed privately by the CEX; the tree is never shared with the public.
   
   This action doesn’t require auditing or oversight. Any malicious operation that the CEX can perform here, such as:
     
@@ -78,9 +85,9 @@ Zero Knowledge Proof, particularly zkSNARKs, allows the prover to achieve **comp
   
   will be detected when the π of Inclusion is handed over to individual users.
 
-- `2. π of Assets`
+  **Account Ownership**
 
-  To prove control over certain assets (denominated in different cryptocurrencies), the CEX will group its wallets and sign a specific message `summa proof of solvency {exchangeId}` with each of them:
+    To prove control over certain accounts, the CEX will group its wallets and sign a specific message (it's up to the CEX to choose the message) with each of them:
 
     *ETH*
     
@@ -98,34 +105,37 @@ Zero Knowledge Proof, particularly zkSNARKs, allows the prover to achieve **comp
     | 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2 | 0x54432ffa |
     | 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy | 0xdddaaaa9 |
 
-  The Smart Contract (deployed on Ethereum, or any other EVM-compatible chain) will check the validity of each signature to verify that the CEX is in control of such wallets. Using a mix of on-chain data and oracles, the Smart Contract will fetch information about the assets controlled by such wallets denominated in different cryptocurrencies from different blockchains.
+  These data are provided to `Snapshot` through a csv file and packed into `AccountOwnershipProof`. At this point, no check check on the validity of the signatures is being performed. A malicious CEX pretending to control accounts that are not theirs will be detected in the next step. 
+
+- `2. π of Account Ownership`
+
+  The `Summa` Smart Contract (it can be deployed on any EVM-compatible chain) will receive a π of Account Ownership and check the validity of each signature to verify that the CEX controls such wallets. On successful verification, these accounts are written to the smart contract as `cexAddresses`
 
 - `3. π of Solvency`
 
-  π of Solvency means proving that $Assets \geq  Liabilities$. The CEX will generate a zk proof that the amount of assets they control (as a result of step 2) is greater than the liabilities of the CEX per currency. 
+  π of Solvency means proving that $Assets \geq  Liabilities$. The CEX will generate a zk proof that the amount of assets controlled by the account they proved ownership of (as a result of step 2) is greater than the liabilities of the CEX. The expression must hold true for each asset. For example, the liabilities denominated in ETH must be covered at least 1:1 by assets denominated ETH. The CEX cannot cover the liabilities denominated in ETH with assets denominated in another currency.
   
-  The public inputs of the circuit are `assets_sum_eth`, `assets_sum_btc` and `mst_root`. 
+  The public inputs of the circuit are `asset_sum_eth`, `asset_sum_btc` and `mst_root`. 
   
     The verification of the π of Solvency happens programmatically inside the smart contract. It involves verifying that: 
 
     - The cryptographic proof is valid
-    - The `assets_sum_eth` and `assets_sum_btc`, public input of the SNARK, match the actual assets owned by the CEX as a result of step 2
+    - Fetching the balances of the `cexAddresses` for BTC and ETH. This happens using a mix of on-chain available data and oracles, in the case these balances do not exist on Ethereum
+    - Verify that `asset_sum_eth` and `asset_sum_btc`, public inputs of the circuit, match the fetched balances of the CEX
   
   If the proof verifies, an event will be emitted by streaming `mst_root` to the public. This will be required in the next step for user-side proof verification.
   
   Note that no data about the liabilities of the CEX is leaked here.
-    
-  [Step 2 and Step 3 will actually happen concurrently in a single transaction]
 
 - `4. π of Inclusion`
 
-  At this point, the CEX has proven its solvency, but how the liabilities were built could have been malicious. For example, a CEX might have arbitrarily excluded "whales" from the liabilities account in order to achieve a dishonest proof of solvency.
+  At this point, the CEX has proven its solvency, but the liabilities could have been built maliciously. For example, a CEX might have arbitrarily excluded "whales" from the liabilities account to achieve a dishonest proof of solvency.
   
-  π of Inclusion means proving that a user, identified by its username and its balances denominated in different currencies, has been accounted for correctly in the liabilities. In practice, it means generating a zk proof that an entry `username -> balanceEth, balanceBTC, ...` is included in a Merkle sum tree with a root equal to the one published on-chain in the previous step. The π doesn't reveal any information about the balances of any other users or even the aggregated liabilities of the CEX.
+  π of Inclusion means proving that a user, identified by its username and balances denominated in different currencies, has accounted for correctly in the liabilities. In practice, it means generating a zk proof that an entry `username -> balanceEth, balanceBTC, ...` is included in a Merkle sum tree with a root equal to the one published on-chain in the previous step. The π doesn't reveal any information about the balances of any other users or even the aggregated liabilities of the CEX.
 
   If any user finds out that they haven't been included in the MST, or have been included with an understated balance, a warning related to the potential non-solvency of the CEX has to be raised.
 
-  The proofs are generated by the CEX and shared with each individual user.
+  The proofs are generated by the CEX and shared with each user.
 
   The verification of the π of Inclusion happens locally on the user device. It involves verifying that: 
 
