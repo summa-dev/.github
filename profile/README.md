@@ -30,6 +30,7 @@ Or, in simpler terms, the CEX has the assets to cover all the balances of its us
 - Ho Chi Min City - 0xParc/PSE Residency - 6/4/23 - [Slides](https://docs.google.com/presentation/d/1RidLMZTsAY0i0ENZYasL1LfsLngataGIGxaIJCqgGng/edit?usp=sharing), [Recording](https://youtu.be/F-Q31AwuTCU)
 - Barcelona - 15/4/23 - [Slides](https://docs.google.com/presentation/d/1Qop5xDCThW5eIB_tY9Nd_5FwDn5DKSJj75nv3nwUaWU/edit?usp=sharing)
 - Naples - Spaghetteth - 25/5/23 - [Slides](https://docs.google.com/presentation/d/1zJz412Ca0rkTuVg8jy3OBvZGOsxYL0EZXhYfBUK2vwo/edit?usp=sharing), [Recording](https://youtu.be/gdGqGC31_yU)
+- Paris - ETHCC - 18/7/23 - [Slides](https://docs.google.com/presentation/d/1wpb9Up64Q61odrZ3ujTNGv3w_1hANJq5uGP5wdZaRfw/edit?usp=sharing), [Recording](https://www.youtube.com/live/cG-Y4-6kp68?feature=share)
 
 ## Why Zero Knowledge?
 
