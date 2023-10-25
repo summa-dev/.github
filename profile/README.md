@@ -23,6 +23,7 @@ Or, in simpler terms, the CEX has the assets to cover all the balances of its us
 - Naples - Spaghetteth - 25/5/23 - [Slides](https://docs.google.com/presentation/d/1zJz412Ca0rkTuVg8jy3OBvZGOsxYL0EZXhYfBUK2vwo/edit?usp=sharing), [Recording](https://youtu.be/gdGqGC31_yU)
 - Paris - ETHCC - 18/7/23 - [Slides](https://docs.google.com/presentation/d/1wpb9Up64Q61odrZ3ujTNGv3w_1hANJq5uGP5wdZaRfw/edit?usp=sharing), [Recording](https://www.youtube.com/live/cG-Y4-6kp68?feature=share)
 - Barcelona - ZCON4 - 1/8/23 - [Slides](https://docs.google.com/presentation/d/1dmQhlFnrbrijYTRxCVDj6aKFvAVUZsdQ7NK0Mr9kcW0/edit?usp=sharing), [Recording](https://youtu.be/P7w6LWXkwns)
+- London - ZkSummit10 - 20/9/23 - [Slides](https://docs.google.com/presentation/d/13nkL63oNacV_uNr0HQo3nrhvDRDCrFK_b_9HlhQCB2A/edit?usp=sharing), [Recording](https://www.youtube.com/watch?v=sRAA1RYYHEs)
 
 ## Docs
 
