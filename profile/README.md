@@ -27,17 +27,7 @@ Or, in simpler terms, the CEX has the assets to cover all the balances of its us
 
 ## Docs
 
-- [Part 1 - Summa Building Blocks - Intro to Proof of Solvency and the Cryptography behind it](https://mirror.xyz/privacy-scaling-explorations.eth/_1Y6ExFD_Rs3oDxwx5_kWAj_Tl_L9c0Hm7E6SVJei0A)
-- [Part 2 - Summa zk Proof of Solvency Protocol](https://mirror.xyz/privacy-scaling-explorations.eth/f2ZfkPXZpvc6DUmG5-SyLjjYf78bcOcFeiJX2tb2hS0)
-
-## Further Resources
-
-- [More on zkSNARKs](https://www.youtube.com/watch?v=lwbt-a8PLRw)
-- [Having a safe CEX: proof of solvency and beyond - Vitalik Buterin](https://vitalik.ca/general/2022/11/19/proof_of_solvency.html)
-- [SNARKed Merkle Sum Tree: A Practical Proof-of-Solvency Protocol based on Vitalik’s Proposal - Eth Research](https://ethresear.ch/t/snarked-merkle-sum-tree-a-practical-proof-of-solvency-protocol-based-on-vitaliks-proposal/14405)
-- [ZK Podcast - Proof of Solvency with Kostas Chalkias](https://zeroknowledge.fm/257-2/)
-- [Generalized Proof of Liabilities - Kostas Chalkias Yan Ji](https://eprint.iacr.org/2021/1350.pdf)
-- [How can Cryptographic Proofs Provide a Guarantee of Financial Solvency? - Eli Ben Sasson](https://www.coincenter.org/how-can-cryptographic-proofs-provide-a-guarantee-of-financial-solvency/)
+- [Summa Book](https://summa.gitbook.io/summa-book/)
 
 
 
